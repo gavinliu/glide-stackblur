@@ -3,10 +3,10 @@ package cn.gavinliu.android.lib.glide.stackblur;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.util.Log;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
@@ -15,15 +15,15 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
  * Created by Gavin on 2016/11/04.
  */
 
-public class GlideStackBlurTransformation extends BitmapTransformation {
+public class GlideStackBlur extends BitmapTransformation {
 
     private TintColorGenerator mTintColorGenerator;
 
-    public GlideStackBlurTransformation(Context context) {
+    public GlideStackBlur(Context context) {
         super(context);
     }
 
-    public GlideStackBlurTransformation(Context context, TintColorGenerator tintColorGenerator) {
+    public GlideStackBlur(Context context, TintColorGenerator tintColorGenerator) {
         super(context);
         mTintColorGenerator = tintColorGenerator;
     }
@@ -31,7 +31,7 @@ public class GlideStackBlurTransformation extends BitmapTransformation {
     @Override
     protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
         if (toTransform != null) {
-            toTransform = BitmapUtils.catBitmap(toTransform, outWidth, outHeight, Matrix.ScaleToFit.CENTER, true);
+            long startTime = System.currentTimeMillis();
 
             BlurUtils blurManager = new BlurUtils(toTransform);
             Bitmap blur = blurManager.process(40);
@@ -51,6 +51,11 @@ public class GlideStackBlurTransformation extends BitmapTransformation {
             canvas.drawBitmap(blur, 0, 0, paint);
 
             blurManager.recycle();
+
+            Log.d("GlideStackBlur", outWidth + "," + outHeight + "  Time: " + (System.currentTimeMillis() - startTime));
+            if (BuildConfig.DEBUG) {
+            }
+
             return result;
         }
 
@@ -59,7 +64,7 @@ public class GlideStackBlurTransformation extends BitmapTransformation {
 
     @Override
     public String getId() {
-        String id = "cn.gavinliu.android.lib.glide.stackblur.GlideStackBlurTransformation";
+        String id = "cn.gavinliu.android.lib.glide.stackblur.GlideStackBlur";
         if (mTintColorGenerator != null) {
             id += mTintColorGenerator.getId();
         }

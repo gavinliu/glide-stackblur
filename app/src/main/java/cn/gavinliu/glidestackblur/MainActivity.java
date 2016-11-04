@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 
-import cn.gavinliu.android.lib.glide.stackblur.GlideStackBlurTransformation;
+import cn.gavinliu.android.lib.glide.stackblur.GlideStackBlur;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageView2 = (ImageView) findViewById(R.id.image2);
         ImageView imageView3 = (ImageView) findViewById(R.id.image3);
 
-        String url = "http://img.xiami.net/images/upload/10-27/186947296.jpg";
+        String url = "http://img.xiami.net/images/album/img48/3048/3714265921440496645.jpg";
         int imageSize = getResources().getDimensionPixelSize(R.dimen.image_size);
         ColorDrawable placeHolder = new ColorDrawable(0xFFDEDEDE);
 
@@ -34,18 +35,16 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(this).load(url)
                 .placeholder(placeHolder)
                 .override(imageSize, imageSize)
-                .centerCrop()
-                .transform(new GlideStackBlurTransformation(this))
+                .transform(new CenterCrop(this), new GlideStackBlur(this))
                 .into(imageView2);
 
         Glide.with(this).load(url)
                 .placeholder(placeHolder)
                 .override(imageSize, imageSize)
-                .centerCrop()
-                .transform(new GlideStackBlurTransformation(this))
-                .transform(new GlideStackBlurTransformation(this, new GlideStackBlurTransformation.TintColorGenerator() {
+                .transform(new CenterCrop(this), new GlideStackBlur(this, new GlideStackBlur.TintColorGenerator() {
                     @Override
                     public int generate(Bitmap bitmap) {
+                        // You can use palette generate dynamic color
                         return 0x803F51B5;
                     }
 

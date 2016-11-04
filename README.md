@@ -5,30 +5,34 @@
 * stackblur for glide
 * tint color on blur image
 
-## Screenshot
+## Screenshots
 
 ![](/screenshots.png)
 
 ## Usage
 
-### dependencies
+### Dependencies
 
-### GlideStackBlurTransformation
+```
+compile 'cn.gavinliu.android.lib:glide-stackblur:1.0'
+```
+
+### GlideStackBlur
 
 ```java
 Glide.with(this).load(url)
         ...
-        .transform(new GlideStackBlurTransformation(this))
+        .transform(new GlideStackBlur(this))
         ...
         .into(imageView);
 ```
 
-### GlideStackBlurTransformation with TintColor
+### GlideStackBlur with TintColor
 
 ```java
 Glide.with(this).load(url)
         ...
-        .transform(new GlideStackBlurTransformation(this, new GlideStackBlurTransformation.TintColorGenerator() {
+        .transform(new GlideStackBlur(this, new TintColorGenerator() {
             @Override
             public int generate(Bitmap bitmap) {
                 // You can use palette generate dynamic color
