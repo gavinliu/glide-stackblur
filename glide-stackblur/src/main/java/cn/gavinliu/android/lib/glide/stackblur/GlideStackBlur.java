@@ -52,8 +52,8 @@ public class GlideStackBlur extends BitmapTransformation {
 
             blurManager.recycle();
 
-            Log.d("GlideStackBlur", outWidth + "," + outHeight + "  Time: " + (System.currentTimeMillis() - startTime));
             if (BuildConfig.DEBUG) {
+                Log.d("GlideStackBlur", outWidth + "," + outHeight + "  Time: " + (System.currentTimeMillis() - startTime));
             }
 
             return result;

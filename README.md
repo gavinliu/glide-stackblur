@@ -35,7 +35,7 @@ Glide.with(this).load(url)
         .transform(new GlideStackBlur(this, new TintColorGenerator() {
             @Override
             public int generate(Bitmap bitmap) {
-                // You can use palette generate dynamic color
+                // You can generate dynamic color
                 return 0x803F51B5;
             }
 
